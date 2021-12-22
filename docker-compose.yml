@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  php:
+    container_name: slave-market-app
+    build:
+      context: etc/docker/php
+    volumes:
+      - .:/app
+      - ./etc/docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    environment:
+        PHP_IDE_CONFIG: 'serverName=local.dev'
+    command: sleep infinity

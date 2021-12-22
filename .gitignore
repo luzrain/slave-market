@@ -1,0 +1,9 @@
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+.idea
+.DS_Store
+/vendor
+/docker-compose.override.yml
