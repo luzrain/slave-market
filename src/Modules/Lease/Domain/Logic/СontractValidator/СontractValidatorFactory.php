@@ -3,7 +3,6 @@
 namespace SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator;
 
 use Iterator;
-use SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validators;
 use SlaveMarket\Modules\Lease\Domain\Repository\LeaseContractRepositoryInterface;
 
 class СontractValidatorFactory

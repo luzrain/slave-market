@@ -65,7 +65,7 @@ class LeaseDateTimeRange
     public function getIntersectedHours(array $comparedHours): array
     {
         // Функция для вычисления пересечения массивов часов
-        $comparator = fn(LeaseHour $a, LeaseHour $b): int => $a->getDateTime() <=> $b->getDateTime();
+        $comparator = fn (LeaseHour $a, LeaseHour $b): int => $a->getDateTime() <=> $b->getDateTime();
 
         // Поиск пересекающихся значений
         $intersections = \array_uintersect($this->getLeaseHours(), $comparedHours, $comparator);

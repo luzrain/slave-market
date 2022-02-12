@@ -1,4 +1,5 @@
 <?php
+
 //
 //namespace SlaveMarket\Modules\Slave\Persistence\Repository;
 //
