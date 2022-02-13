@@ -22,6 +22,11 @@
 | `make cs-fixer` | Запустить PHP CS Fixer и исправить codestyle |
 | `make cs-fixer-test` | Запустить PHP CS Fixer и показать diff (не исправлять) |
 
+Следующая команда запустит контейнер, установит зависимости, выполнит тесты, и остановит контейнер:
+```bash
+$ make start cs-fixer-test psalm tests stop
+```
+
 ## Задание №2. Спроектировать схему БД и написать запросы
 
 Схема БД: [sql/schema.sql](sql/schema.sql)  
