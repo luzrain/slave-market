@@ -2,7 +2,7 @@
 
 namespace SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validators;
 
-use SlaveMarket\Modules\Lease\Domain\Exception\LeaseRequestException;
+use SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Exception\AccessToLeaseValidateException;
 use SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validator;
 use SlaveMarket\Modules\Lease\Persistence\Entity\LeaseContract;
 use SlaveMarket\Modules\Master\Persistence\Entity\Master;
@@ -12,20 +12,17 @@ use SlaveMarket\Modules\Master\Persistence\Entity\Master;
  */
 class ValidateSlaveIsAccessToLease extends Validator
 {
-    // Шаблон текста ошибки
-    private const ERROR_TEMPLATE = 'Ошибка. Раб #%s "%s" занят. Занятые часы: %s';
-
     /**
      * @param LeaseContract $leaseContract
      * @return void
-     * @throws LeaseRequestException
+     * @throws AccessToLeaseValidateException
      */
     public function validate(LeaseContract $leaseContract): void
     {
         $master = $leaseContract->getMaster();
         $slave = $leaseContract->getSlave();
         $dateTimeRange = $leaseContract->getDateTimeRange();
-        $intersectionsDateTimes = [];
+        $intersectedHours = [];
 
         // Поиск активных договоров аренды за указанный диапазон времени
         $contracts = $this->contractRepository->getForSlave($slave->getId(), $dateTimeRange->getStartTime(), $dateTimeRange->getEndTime());
@@ -41,20 +38,12 @@ class ValidateSlaveIsAccessToLease extends Validator
             }
 
             // Поиск пересекающихся часов
-            $intersectedHours = $interceptionDateTimeRange->getIntersectedHours($dateTimeRange->getLeaseHours());
-
-            // Наполнение массива пересекающихся часов, чтобы потом показать их в тексте ошибки
-            foreach ($intersectedHours as $leaseHour) {
-                $intersectionsDateTimes[] = '"' . $leaseHour->getDateString() . '"';
-            }
+            $intersectedHours += $interceptionDateTimeRange->getIntersectedHours($dateTimeRange->getLeaseHours());
         }
 
         // Если нашлись пересекающиеся часы - кидаем исключение
-        if (!empty($intersectionsDateTimes)) {
-            $intersections = implode(', ', $intersectionsDateTimes);
-            $error = sprintf(self::ERROR_TEMPLATE, $slave->getId()->toBase32(), $slave->getName(), $intersections);
-
-            throw $this->createException($error);
+        if (!empty($intersectedHours)) {
+            throw new AccessToLeaseValidateException($slave, $intersectedHours);
         }
     }
 

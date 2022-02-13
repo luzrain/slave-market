@@ -27,15 +27,4 @@ abstract class Validator
      * @throws LeaseRequestException Если аренда не может быть выдана
      */
     abstract public function validate(LeaseContract $leaseContract): void;
-
-    /**
-     * Получить экземпляр Exception для генерации ошибки
-     *
-     * @param string $error
-     * @return LeaseRequestException
-     */
-    protected function createException(string $error): LeaseRequestException
-    {
-        return new LeaseRequestException($error);
-    }
 }

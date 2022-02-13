@@ -3,7 +3,7 @@
 namespace SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validators;
 
 use Carbon\CarbonImmutable;
-use SlaveMarket\Modules\Lease\Domain\Exception\LeaseRequestException;
+use SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Exception\WorkTimeValidateException;
 use SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validator;
 use SlaveMarket\Modules\Lease\Persistence\Entity\LeaseContract;
 
@@ -15,13 +15,10 @@ class ValidateSlaveWorkTime extends Validator
     // Максимальное количество рабочих часов в день
     private const MAX_DAY_HOURS = 16;
 
-    // Шаблон текста ошибки
-    private const ERROR_TEMPLATE = 'Ошибка. %s у раба #%s "%s" свободно %s часов';
-
     /**
      * @param LeaseContract $leaseContract
      * @return void
-     * @throws LeaseRequestException
+     * @throws WorkTimeValidateException
      */
     public function validate(LeaseContract $leaseContract): void
     {
@@ -58,8 +55,7 @@ class ValidateSlaveWorkTime extends Validator
                 $freeHours = self::MAX_DAY_HOURS - count($busyHours);
 
                 // Бросаем исключение
-                $error = sprintf(self::ERROR_TEMPLATE, $date, $slave->getId()->toBase32(), $slave->getName(), $freeHours);
-                throw $this->createException($error);
+                throw new WorkTimeValidateException($date, $slave, $freeHours);
             }
         }
     }
