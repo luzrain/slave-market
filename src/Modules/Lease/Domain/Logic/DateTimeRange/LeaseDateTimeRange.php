@@ -7,10 +7,14 @@ use DateTimeImmutable;
 use Webmozart\Assert\Assert;
 
 /**
- * Диапазон времени аренды.
+ * Диапазон времени аренды
  */
 class LeaseDateTimeRange
 {
+    /**
+     * @param DateTimeImmutable $startTime
+     * @param DateTimeImmutable $endTime
+     */
     public function __construct(
         private DateTimeImmutable $startTime,
         private DateTimeImmutable $endTime,
@@ -19,7 +23,7 @@ class LeaseDateTimeRange
     }
 
     /**
-     * Время начала аренды.
+     * Получить время начала аренды
      *
      * @return DateTimeImmutable
      */
@@ -29,7 +33,7 @@ class LeaseDateTimeRange
     }
 
     /**
-     * Время окончания аренды.
+     * Получить время окончания аренды
      *
      * @return DateTimeImmutable
      */
@@ -39,7 +43,7 @@ class LeaseDateTimeRange
     }
 
     /**
-     * Массив часов, включающий часы аредны для текущего договора.
+     * Получить массив арендованных часов для текущего договора
      *
      * @return LeaseHour[]
      */
@@ -57,7 +61,7 @@ class LeaseDateTimeRange
     }
 
     /**
-     * Возвращает пересекающиеся часы в переданном диапазоне и текущем договоре.
+     * Получить пересекающиеся часы в из переданного массива часов и массива часов из текущего договора
      *
      * @param LeaseHour[] $comparedHours
      * @return LeaseHour[]

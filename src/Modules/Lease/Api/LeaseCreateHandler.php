@@ -24,7 +24,7 @@ class LeaseCreateHandler
 
     /**
      * Выполнить операцию аренды.
-     * Если аренда успешно оформлена - возвращается новый экземпляр LeaseContract
+     * Если аренда успешно оформлена - возвращается новый экземпляр аренды LeaseContract
      * Если в процессе аренды произошла ошибка, выбрасывается исключение LeaseRequestException с детальным описанием произошедшего
      *
      * @param LeaseRequestCommand $request
@@ -37,7 +37,7 @@ class LeaseCreateHandler
         $slave = $this->slaveRepository->getById($request->slaveId);
 
         /**
-         * Создаем новый договор аренды.
+         * Создаем новый договор аренды
          */
         $leaseContract = new LeaseContract(
             master: $master,
@@ -47,7 +47,7 @@ class LeaseCreateHandler
 
         /**
          * Проверка договора аренды на возможность оформления.
-         * Проверяется, доступны ли запрошенные часы, не превышено ли рабочее время раба.
+         * Проверяется, доступны ли запрошенные часы, не превышено ли рабочее время раба и т.д.
          *
          * @throws LeaseRequestException
          */

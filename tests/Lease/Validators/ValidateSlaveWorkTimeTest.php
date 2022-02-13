@@ -58,7 +58,7 @@ class ValidateSlaveWorkTimeTest extends TestCase
             ),
         );
 
-        // Договор аренды. Хозяин пытается арендовать того же раба на 6 часов
+        // Договор аренды. Хозяин пытается арендовать того же раба еще на 6 часов
         $leaseContract2 = new LeaseContract(
             master: $this->master,
             slave: $this->slave,
@@ -80,12 +80,13 @@ class ValidateSlaveWorkTimeTest extends TestCase
      */
     public function testWorkFullDaysInDataRangeAndTimeExceeding(): void
     {
+        // Договор аренды. Хозяин арендовал раба на 5 полных дней + 21 час неполного дня
         $leaseContract = new LeaseContract(
             master: $this->master,
             slave: $this->slave,
             dateTimeRange: new LeaseDateTimeRange(
-                CarbonImmutable::parse('2022-01-01 21:00:00'),
-                CarbonImmutable::parse('2022-01-06 21:00:00'),
+                CarbonImmutable::parse('2022-01-01 00:00:00'),
+                CarbonImmutable::parse('2022-01-06 20:00:00'),
             ),
         );
 
@@ -101,11 +102,12 @@ class ValidateSlaveWorkTimeTest extends TestCase
      */
     public function testWorkFullDaysInDataRangeAndTimeNotExceeding(): void
     {
+        // Договор аренды. Хозяин арендовал раба на 5 полных дней + 10 часов неполного дня
         $leaseContract = new LeaseContract(
             master: $this->master,
             slave: $this->slave,
             dateTimeRange: new LeaseDateTimeRange(
-                CarbonImmutable::parse('2022-01-01 21:00:00'),
+                CarbonImmutable::parse('2022-01-01 00:00:00'),
                 CarbonImmutable::parse('2022-01-06 09:00:00'),
             ),
         );

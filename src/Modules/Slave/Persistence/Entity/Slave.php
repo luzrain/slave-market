@@ -10,55 +10,58 @@ use SlaveMarket\Modules\Slave\Domain\Logic\Characteristics\SkinColor;
 use Symfony\Component\Uid\Ulid;
 use Webmozart\Assert\Assert;
 
+/**
+ * Раб
+ */
 final class Slave
 {
     /**
-     * Id.
+     * Id
      */
     private Ulid $id;
 
     /**
-     * Кличка.
+     * Кличка
      */
     private string $name;
 
     /**
-     * Пол.
+     * Пол
      */
     private Sex $sex;
 
     /**
-     * Дата рождения (храним ее, вместо возраста).
+     * Дата рождения (храним ее, вместо возраста)
      */
     private DateTimeImmutable $dob;
 
     /**
-     * Вес.
+     * Вес
      */
     private float $weight;
 
     /**
-     * Цвет кожи.
+     * Цвет кожи
      */
     private SkinColor $skinColor;
 
     /**
-     * Где пойман/выращен.
+     * Где пойман/выращен
      */
     private string $grownPlace;
 
     /**
-     * Описание и повадки (например, любит играть с собакой).
+     * Описание и повадки (например, любит играть с собакой)
      */
     private string $description;
 
     /**
-     * Ставка почасовой аренды.
+     * Ставка почасовой аренды
      */
     private float $pricePerHour;
 
     /**
-     * Стоимость.
+     * Стоимость
      */
     private float $price;
 

@@ -16,12 +16,12 @@ use Symfony\Component\Uid\Ulid;
 final class LeaseContract
 {
     /**
-     * Id.
+     * Id
      */
     private Ulid $id;
 
     /**
-     * Хозяин, арендовавший раба.
+     * Хозяин, арендовавший раба
      */
     private Master $master;
 

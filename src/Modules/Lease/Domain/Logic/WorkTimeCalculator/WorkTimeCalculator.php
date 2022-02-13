@@ -5,13 +5,17 @@ namespace SlaveMarket\Modules\Lease\Domain\Logic\WorkTimeCalculator;
 use SlaveMarket\Modules\Lease\Domain\Logic\DateTimeRange\LeaseDateTimeRange;
 
 /**
- * Расчет стоимости и количества часов рабочего времени раба
+ * Калькулятр стоимости аренды и рабочих часов
  */
 class WorkTimeCalculator
 {
     // Количество оплачиваемых часов при аренде на полный день
     private const FULLDAY_PAID_HOURS = 16;
 
+    /**
+     * @param LeaseDateTimeRange $dateTimeRange
+     * @param float $pricePerHour
+     */
     public function __construct(
         private LeaseDateTimeRange $dateTimeRange,
         private float $pricePerHour,
@@ -19,7 +23,7 @@ class WorkTimeCalculator
     }
 
     /**
-     * Получить количество часов аренды.
+     * Получить количество часов аренды
      *
      * @return int
      */
@@ -29,7 +33,7 @@ class WorkTimeCalculator
     }
 
     /**
-     * Получить количество оплачиваемых часов аренды.
+     * Получить количество оплачиваемых часов аренды
      *
      * @return int
      */
@@ -51,12 +55,12 @@ class WorkTimeCalculator
     }
 
     /**
-     * Получить стоимость аренды.
+     * Получить стоимость аренды
      *
      * @return float
      */
     public function getPrice(): float
     {
-        return $this->getPaidHours() * $this->pricePerHour;
+        return \round($this->getPaidHours() * $this->pricePerHour, 2);
     }
 }

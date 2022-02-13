@@ -6,6 +6,9 @@ namespace SlaveMarket\Modules\Category\Persistence\Entity;
 
 use Symfony\Component\Uid\Ulid;
 
+/**
+ * Категория
+ */
 final class Category
 {
     /**
@@ -15,25 +18,28 @@ final class Category
     private const MAX_WORK_TIME_PER_DAY = 16;
 
     /**
-     * Id.
+     * Id
      */
     private Ulid $id;
 
     /**
-     * Название категории.
+     * Название категории
      */
     private string $name;
 
     /**
-     * Родительская категория.
+     * Родительская категория
      */
     private ?Category $parentCategory = null;
 
     /**
-     * Максимальное количество часов, на которые может быть арендован раб.
+     * Максимальное количество часов, на которые может быть арендован раб
      */
     private int $maxWorkTime = self::MAX_WORK_TIME_PER_DAY;
 
+    /**
+     * @param string $name
+     */
     public function __construct(
         string $name,
     ) {

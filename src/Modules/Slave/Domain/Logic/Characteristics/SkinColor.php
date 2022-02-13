@@ -3,7 +3,7 @@
 namespace SlaveMarket\Modules\Slave\Domain\Logic\Characteristics;
 
 /**
- * Цвет кожи рабов
+ * Цвет кожи раба
  */
 enum SkinColor: string
 {

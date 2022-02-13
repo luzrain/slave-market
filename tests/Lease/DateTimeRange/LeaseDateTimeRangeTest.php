@@ -14,7 +14,7 @@ use SlaveMarket\Modules\Lease\Domain\Logic\DateTimeRange\LeaseHour;
 class LeaseDateTimeRangeTest extends TestCase
 {
     /**
-     * Нельзя создать диапазон аренды, где время окончания аренды меньше времени старта аренды
+     * Нельзя создать диапазон аренды, если время окончания аренды меньше времени старта аренды
      */
     public function testEndTimeLessThenStartTime(): void
     {
@@ -26,7 +26,7 @@ class LeaseDateTimeRangeTest extends TestCase
     }
 
     /**
-     * Нельзя создать диапазон аренды, где время окончания аренды равно времени старта аренды
+     * Нельзя создать диапазон аренды, если время окончания аренды равно времени старта аренды
      */
     public function testEndTimeEqualStartTime(): void
     {
@@ -38,7 +38,7 @@ class LeaseDateTimeRangeTest extends TestCase
     }
 
     /**
-     * Можно создать диапазон аренды, где время окончания аренды больше времени старта аренды
+     * Можно создать диапазон аренды, если время окончания аренды больше времени старта аренды
      */
     public function testEndTimeGreaterThanStartTime(): void
     {
@@ -46,7 +46,6 @@ class LeaseDateTimeRangeTest extends TestCase
         $end = CarbonImmutable::parse('2022-01-01 14:00:00');
 
         $range = new LeaseDateTimeRange($start, $end);
-
         $this->assertInstanceOf(LeaseDateTimeRange::class, $range);
     }
 

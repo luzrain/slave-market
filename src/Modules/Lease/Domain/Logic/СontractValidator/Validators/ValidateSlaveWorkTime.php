@@ -3,6 +3,7 @@
 namespace SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validators;
 
 use Carbon\CarbonImmutable;
+use SlaveMarket\Modules\Lease\Domain\Exception\LeaseRequestException;
 use SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validator;
 use SlaveMarket\Modules\Lease\Persistence\Entity\LeaseContract;
 
@@ -17,6 +18,11 @@ class ValidateSlaveWorkTime extends Validator
     // Шаблон текста ошибки
     private const ERROR_TEMPLATE = 'Ошибка. %s у раба #%s "%s" свободно %s часов';
 
+    /**
+     * @param LeaseContract $leaseContract
+     * @return void
+     * @throws LeaseRequestException
+     */
     public function validate(LeaseContract $leaseContract): void
     {
         $slave = $leaseContract->getSlave();
@@ -60,14 +66,13 @@ class ValidateSlaveWorkTime extends Validator
 
     /**
      * Возвращает массив часов, разбитый по датам.
-     * Ключ массива - дата в формате Y-m-d, а значение это массив занятых часов в эту дату
+     * Ключ массива - дата в формате Y-m-d, а значение это массив занятых часов на эту дату
      *
      * @param LeaseContract[] $contracts
      * @return array
      */
     private function getDaysMap(array $contracts): array
     {
-        // Массив занятых часов с разбивкой по дням, где ключ это дата в формате Y-m-d, а значение это массив занятых часов.
         $map = [];
 
         // Цикл по всем часам во всех найденных контрактах

@@ -5,11 +5,11 @@ namespace SlaveMarket\Tests\RepositoryStubs;
 use SlaveMarket\Modules\Slave\Domain\Repository\SlavesRepositoryInterface;
 use SlaveMarket\Modules\Slave\Persistence\Entity\Slave;
 
+/**
+ * Stub репозитория рабов
+ */
 trait FakeSlaveRepository
 {
-    /**
-     * Stub репозитория рабов
-     */
     public function makeFakeSlaveRepository(Slave ...$slaves): SlavesRepositoryInterface
     {
         $slavesRepository = $this->createMock(SlavesRepositoryInterface::class);

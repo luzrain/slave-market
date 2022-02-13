@@ -55,7 +55,7 @@ class ValidateSlaveIsAccessToLeaseTest extends TestCase
      */
     public function testTimeIntersection(): void
     {
-        // Договор аренды. Хозяин1 арендовал раба 6 часов
+        // Договор аренды. Хозяин1 арендовал раба на 7 часов
         $leaseContract1 = new LeaseContract(
             master: $this->master1,
             slave: $this->slave,
@@ -83,16 +83,18 @@ class ValidateSlaveIsAccessToLeaseTest extends TestCase
     }
 
     /**
-     * Тестирование приоритетности VIP статусов при аренде на занятое время
+     * Договор аренды может быть оформлен на уже занятое время, если VIP статус арендатора выше
      * @dataProvider vipStatusProvider
      */
     public function testTimeIntersectionForVip(?Vip $vip1, ?Vip $vip2, bool $isVip2MorePriority): void
     {
-        // Vip статус второго хозяина больше, чем у первого (у первого нет VIP статуса)
+        // Vip статус первого хозяина
         $this->master1->setVipStatus($vip1);
+
+        // Vip статус второго хозяина
         $this->master2->setVipStatus($vip2);
 
-        // Договор аренды. Хозяин1 арендовал раба 6 часов
+        // Договор аренды. Хозяин1 арендовал раба 7 часов
         $leaseContract1 = new LeaseContract(
             master: $this->master1,
             slave: $this->slave,
@@ -116,9 +118,11 @@ class ValidateSlaveIsAccessToLeaseTest extends TestCase
         $validator = new ValidateSlaveIsAccessToLease($contractRepository);
 
         if ($isVip2MorePriority) {
+            // Vip статус Хозяина2 выше, чем Хозяина1
             // no exception
             $this->assertTrue(true);
         } else {
+            // Vip статус Хозяина2 ниже, чем Хозяина1
             $this->expectException(LeaseRequestException::class);
         }
 
@@ -126,10 +130,10 @@ class ValidateSlaveIsAccessToLeaseTest extends TestCase
     }
 
     /**
-     * Датапровайдер для тестирования приоритетности мастера с VIP статусом при аренде
-     * 1 значение: VIP статус 1 хозяина
-     * 2 значение: VIP статус 2 хозяина
-     * 3 значение: имеет ли приоритет второй над первым
+     * Датапровайдер для тестирования приоритетности хозяина с VIP статусом при аренде
+     * 1 значение массива: VIP статус 1 хозяина
+     * 2 значение массива: VIP статус 2 хозяина
+     * 3 значение массива: имеет ли приоритет второй над первым
      *
      * @return array
      */

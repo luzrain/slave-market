@@ -9,27 +9,27 @@ use Symfony\Component\Uid\Ulid;
 use Webmozart\Assert\Assert;
 
 /**
- * Объект хозяин
+ * Хозяин
  */
 final class Master
 {
     /**
-     * Id.
+     * Id
      */
     private Ulid $id;
 
     /**
-     * Имя.
+     * Имя
      */
     private string $name;
 
     /**
-     * Баланс золота на счету.
+     * Баланс золота на счету
      */
     private float $gold = 0;
 
     /**
-     * VIP статус.
+     * VIP статус
      */
     private ?Vip $vip = null;
 

@@ -8,12 +8,12 @@ use SlaveMarket\Modules\Lease\Domain\Logic\DateTimeRange\LeaseDateTimeRange;
 use SlaveMarket\Modules\Lease\Domain\Logic\WorkTimeCalculator\WorkTimeCalculator;
 
 /**
- * Тестирование корректности вычисления стоимости аренды и количества рабочих часов
+ * Тестирование калькулятра стоимости аренды и рабочих часов
  */
 class WorkTimeCalculatorTest extends TestCase
 {
     /**
-     * Проверка вычисляемой стоимости аренды для неполного дня
+     * Проверка стоимости аренды для неполного дня
      */
     public function testPartialDay(): void
     {
@@ -34,7 +34,7 @@ class WorkTimeCalculatorTest extends TestCase
     }
 
     /**
-     * Проверка вычисляемой стоимости аренды для полных дней
+     * Проверка стоимости аренды для полных дней
      * Оплачиваемые часы считаем так: 3 полных дня считаем по 16 часов + 9 часов из неполного дня = 57 оплачиваемых часов
      */
     public function testFullDay(): void

@@ -2,6 +2,7 @@
 
 namespace SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validators;
 
+use SlaveMarket\Modules\Lease\Domain\Exception\LeaseRequestException;
 use SlaveMarket\Modules\Lease\Domain\Logic\СontractValidator\Validator;
 use SlaveMarket\Modules\Lease\Persistence\Entity\LeaseContract;
 use SlaveMarket\Modules\Master\Persistence\Entity\Master;
@@ -14,6 +15,11 @@ class ValidateSlaveIsAccessToLease extends Validator
     // Шаблон текста ошибки
     private const ERROR_TEMPLATE = 'Ошибка. Раб #%s "%s" занят. Занятые часы: %s';
 
+    /**
+     * @param LeaseContract $leaseContract
+     * @return void
+     * @throws LeaseRequestException
+     */
     public function validate(LeaseContract $leaseContract): void
     {
         $master = $leaseContract->getMaster();
@@ -37,6 +43,7 @@ class ValidateSlaveIsAccessToLease extends Validator
             // Поиск пересекающихся часов
             $intersectedHours = $interceptionDateTimeRange->getIntersectedHours($dateTimeRange->getLeaseHours());
 
+            // Наполнение массива пересекающихся часов, чтобы потом показать их в тексте ошибки
             foreach ($intersectedHours as $leaseHour) {
                 $intersectionsDateTimes[] = '"' . $leaseHour->getDateString() . '"';
             }

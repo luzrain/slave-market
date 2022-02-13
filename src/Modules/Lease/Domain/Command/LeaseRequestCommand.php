@@ -8,7 +8,7 @@ use Symfony\Component\Uid\Ulid;
 use DateTimeImmutable;
 
 /**
- * Запрос на аренду раба.
+ * Команда запроса на аренду раба
  */
 class LeaseRequestCommand
 {

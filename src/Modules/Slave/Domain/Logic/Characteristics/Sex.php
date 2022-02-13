@@ -3,7 +3,7 @@
 namespace SlaveMarket\Modules\Slave\Domain\Logic\Characteristics;
 
 /**
- * Пол рабов
+ * Пол раба
  */
 enum Sex: string
 {

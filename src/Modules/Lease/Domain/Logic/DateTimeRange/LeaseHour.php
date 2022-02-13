@@ -11,6 +11,9 @@ use DateTimeImmutable;
  */
 class LeaseHour
 {
+    /**
+     * @param DateTimeImmutable $dateTime
+     */
     public function __construct(
         private DateTimeImmutable $dateTime
     ) {

@@ -3,8 +3,8 @@
 namespace SlaveMarket\Modules\Master\Domain\Logic\Characteristics;
 
 /**
- * VIP статус хозяев
- * Чем значение больше, тем более приоритетнее статус
+ * VIP статус хозяина
+ * Чем больше значение, тем приоритетнее VIP статус
  */
 enum Vip: int
 {
