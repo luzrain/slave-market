@@ -33,11 +33,11 @@ vendor: composer.json composer.lock
 	@touch -c vendor
 
 .PHONY: sh
-sh: ## Войти в консоль php контейнера
+sh: ## Войти в консоль контейнера
 	@$(COMPOSE_EXEC) app sh
 
 .PHONY: tests
-tests: ## Запуск юнит-тестов
+tests: ## Запуск тестов
 	@$(COMPOSE_EXEC) app vendor/bin/phpunit
 
 .PHONY: psalm
@@ -45,9 +45,9 @@ psalm: ## Запуск статического анализатора кода
 	@$(COMPOSE_EXEC) app vendor/bin/psalm
 
 .PHONY: cs-fixer
-cs-fixer: ## Запустить cs-fixer и исправить codestyle
+cs-fixer: ## Запустить PHP CS Fixer и исправить codestyle
 	@$(COMPOSE_EXEC) app vendor/bin/php-cs-fixer fix --using-cache no --using-cache=no
 
 .PHONY: cs-fixer-test
-cs-fixer-test: ## Запустить cs-fixer и показать diff (не исправлять)
+cs-fixer-test: ## Запустить PHP CS Fixer и показать diff (не исправлять)
 	@$(COMPOSE_EXEC) app vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --show-progress=dots

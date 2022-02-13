@@ -8,19 +8,19 @@
 ![Psalm](https://github.com/luzrain/slave-market/actions/workflows/psalm.yaml/badge.svg)
 ![Codestyle](https://github.com/luzrain/slave-market/actions/workflows/codestyle.yaml/badge.svg)
 
-#### Запуск проекта
-```bash
-make start
-```
-
-#### Запуск тестов
-```bash
-make tests
-```
-#### Запуск статического анализатора кода
-```bash
-make psalm
-```
+#### Команды для запуска проекта
+| Команда | Описание |
+|--|--|
+| `make help` | Справка по командам |
+| `make build` | Билд образа |
+| `make start` | Старт приложения |
+| `make stop` | Стоп приложения |
+| `make clean` | Стоп приложения и очистка файлов |
+| `make sh` | Войти в консоль контейнера |
+| `make tests` | Запуск тестов |
+| `make psalm` | Запуск статического анализатора кода |
+| `make cs-fixer` | Запустить PHP CS Fixer и исправить codestyle |
+| `make cs-fixer-test` | Запустить PHP CS Fixer и показать diff (не исправлять) |
 
 ## Задание №2. Спроектировать схему БД и написать запросы
 
