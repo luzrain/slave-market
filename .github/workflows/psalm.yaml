@@ -1,0 +1,29 @@
+# Запуск статического анализатора Psalm для поиска ошибок в коде
+
+name: Psalm
+on:
+  push:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run:
+    name: Static analyzer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: zip
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Composer install
+        run: composer install
+
+      - name: Run Psalm
+        run: php vendor/bin/psalm
