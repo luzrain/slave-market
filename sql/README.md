@@ -16,11 +16,11 @@ WHERE `weight` > 60
 ```sql
 SELECT
     `category`.*,
-    COUNT(`slave_category`.`category_id`) AS `slave_count`
+    COUNT(`category`.`id`) AS `slaves_count`
 FROM `slave_category`
 LEFT JOIN `category` ON `category`.`id` = `slave_category`.`category_id`
 GROUP BY `category`.`id`
-HAVING `slave_count` > 10
+HAVING `slaves_count` > 10
 ```
 
 #### Выбрать категорию с наибольшей суммарной стоимостью рабов.
@@ -40,13 +40,13 @@ LIMIT 1
 ```sql
 SELECT
     `category`.*,
-    SUM(IF(`slave`.`sex` = 'male', 1, 0)) AS `male`,
-    SUM(IF(`slave`.`sex` = 'female', 1, 0)) AS `female`
+    SUM(IF(`slave`.`sex` = 'male', 1, 0)) AS `males_count`,
+    SUM(IF(`slave`.`sex` = 'female', 1, 0)) AS `females_count`
 FROM `slave_category`
 LEFT JOIN `slave` ON `slave`.`id` = `slave_category`.`slave_id`
 LEFT JOIN `category` ON `category`.`id` = `slave_category`.`category_id`
 GROUP BY `category`.`id`
-HAVING `male` > `female`
+HAVING `males_count` > `females_count`
 ```
 
 #### Количество рабов в категории "Для кухни" (включая все вложенные категории).
@@ -59,7 +59,8 @@ WITH RECURSIVE `cte` AS (
     UNION ALL
     SELECT
         `c`.`id`
-    FROM `category` `c` JOIN `cte` ON `cte`.`id` = `c`.`parent_id`
+    FROM `category` `c`
+    JOIN `cte` ON `cte`.`id` = `c`.`parent_id`
 )
 SELECT
     COUNT(*) AS `count`
