@@ -8,7 +8,7 @@
 ![Psalm](https://github.com/luzrain/slave-market/actions/workflows/psalm.yaml/badge.svg)
 ![Codestyle](https://github.com/luzrain/slave-market/actions/workflows/codestyle.yaml/badge.svg)
 
-#### Команды для запуска проекта
+### Команды для запуска проекта
 | Команда | Описание |
 |--|--|
 | `make help` | Справка по командам |
