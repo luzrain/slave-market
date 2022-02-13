@@ -42,21 +42,35 @@ class LeaseCreateHandler
         $leaseContract = new LeaseContract(
             master: $master,
             slave: $slave,
-            dateTimeRange: new LeaseDateTimeRange($request->dateFrom, $request->dateTo),
+            dateTimeRange: new LeaseDateTimeRange(
+                $request->dateFrom,
+                $request->dateTo
+            ),
         );
 
         /**
          * Проверка договора аренды на возможность оформления.
          * Проверяется, доступны ли запрошенные часы, не превышено ли рабочее время раба и т.д.
          *
-         * @throws LeaseRequestException
+         * @throws LeaseRequestException Если аренда не может быть выдана
          */
         foreach ($this->contractValidatorFactory->getValidators() as $validator) {
             $validator->validate($leaseContract);
         }
 
         /**
-         * Сохранение контаркта.
+         * Списываем стоимость аренды со счета хозяина
+         * Отрицательный баланс в данном случае не учитываем, потому что считаем, что запас золота у хозяина бесконечный
+         */
+        $master->minusGold($leaseContract->getPrice());
+
+        /**
+         * Сохранение контаркта
+         */
+        // Не реализовано
+
+        /**
+         * Сохранение хозяина
          */
         // Не реализовано
 
