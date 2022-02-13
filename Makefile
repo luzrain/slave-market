@@ -29,7 +29,7 @@ up:
 	@docker-compose up -d
 
 vendor: composer.json composer.lock
-	@$(COMPOSE_EXEC) app composer install
+	@$(COMPOSE_EXEC) app composer install --no-scripts
 	@touch -c vendor
 
 .PHONY: sh
